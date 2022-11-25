@@ -2,11 +2,8 @@ import socket
 import os
 
 BUFFER_SIZE = 9216
-# HOST = "192.168.56.1"
-# HOST = "122.184.65.66"
-
 # The reciever's (IPv4) address (of wireless connection)
-HOST = "10.59.232.84" 
+
 HOST = '''Device's IP address'''
 
 # Port number
@@ -14,7 +11,6 @@ PORT = 6666
 
 # Filename of the file to be transferred
 filename = "movies_info.csv"
-
 def client_prog():
 
     # Creating a socket for the client to send the file
@@ -28,7 +24,7 @@ def client_prog():
     # reading the file 
     file = open(filename, "r")
     data = file.read()
-
+    print("Length of data beign sent :-", len(data), "Bytes")
     # We use the utf-8 encoding and decoding to transfer data via TCPs
 
     # Sending file name to the server(reciever), so that it can save the data into that file    

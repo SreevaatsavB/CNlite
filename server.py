@@ -2,9 +2,7 @@ import socket
 import os
 
 # Device's IP address
-# SERVER_HOST = "192.168.56.1"
-# SERVER_HOST = "122.184.65.66"
-SERVER_HOST = "10.59.232.84"
+
 SERVER_HOST = '''Device's IP address'''
 # SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 6666
