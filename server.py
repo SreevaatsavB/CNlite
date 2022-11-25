@@ -2,12 +2,13 @@ import socket
 import os
 
 # Device's IP address
-SERVER_HOST = "192.168.56.1"
+# SERVER_HOST = "192.168.56.1"
 # SERVER_HOST = "122.184.65.66"
+SERVER_HOST = "10.59.232.84"
 # SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 6666
-# receive 4096 bytes each time
-BUFFER_SIZE = 2048
+
+BUFFER_SIZE = 9216
 SEPARATOR = "-"
 
 def server_prog():
@@ -21,21 +22,22 @@ def server_prog():
 
     print(ADDRESS, "IS CONNECTED")
 
-    received = client_socket.recv(BUFFER_SIZE).decode()
+    filename = client_socket.recv(BUFFER_SIZE).decode("utf-8")
+    print("FILENAME IS ", filename)
+    file = open(filename, "w")
+    client_socket.send("FILE NAME RECIEVED".encode("utf-8"))
 
-    filename, filesize = received.split(SEPARATOR)
-    filename = os.path.basename(filename)
-    filesize = int(filesize)
 
-    with open(filename, "wb") as f:
-        while True:
-            bytes_read = client_socket.recv(2048)
-            if not bytes_read:    
-                break
-            f.write(bytes_read)
-            
+    data = client_socket.recv(BUFFER_SIZE).decode("utf-8")
+    print("Length of the data recieved :- ",len(data))
+    file.write(data)
+    client_socket.send("DATA RECIEVED".encode("utf-8"))
+    
+    print("File recieved and read")        
     client_socket.close()
+    print("FILE TRANSFER DONE")
     server_socket.close()
+    print("DISCONNECTED")
 
 
 if __name__ == "__main__":
